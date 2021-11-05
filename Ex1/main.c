@@ -3,7 +3,7 @@
 #include "NumClass.h"
 #define true 1
 #define false 0
-void main()
+int main()
 {
 	int num1, num2;
 	printf("Enter two numbers to set a range\n");
@@ -42,4 +42,5 @@ void main()
 		chooise--;
 	}
 	printf("\n");
+	return 0;
 }
