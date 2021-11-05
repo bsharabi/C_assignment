@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdio.h>
+#include "NumClass.h"
 #define true 1
 #define false 0
 //O(log(number)) base 10
@@ -15,8 +16,7 @@ int isPalindrome(int number)
 //O(log(number)) base 10
 int isArmstrong(int number)
 {
-	number = abs(number);
-	int nDigits = floor(log10(abs(number))) + 1;
+	int nDigits = floor(log10(number)) + 1;
 	int temp = number;
 	int armsNumber = 0;
 	do
