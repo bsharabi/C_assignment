@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "my_mat.h"
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-#define INFINITY 9999
+#define INFINITY 111111111111111111
 #define V 10
 int distance[V][V] = { 0 };
 int graph[V][V] = { 0 };
