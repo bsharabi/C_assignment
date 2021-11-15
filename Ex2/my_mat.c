@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "my_mat.h"
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-#define INFINITY 9999
+#define INFINITY 111111111111111111
 #define V 10
 #define false 0
 #define true 1
