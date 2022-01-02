@@ -1,49 +1,39 @@
-//#include "algo.h"
-//
-//int main()
-//{
-//    char *graphList = "";
-//    int *addNode_EdgeList = NULL;
-//    int nodeDel = 0;
-//    int nodeSrc = 0, nodeDest = 0;
-//    int dist;
-//    int *nodeList = NULL;
-//    int *tspList;
-//    char ch;
-//    while (true)
-//    {
-//        printf("(A) --> to create a graph\n");
-//        printf("(B) --> create new Node\n");
-//        printf("(D) --> delete Node\n");
-//        printf("(S) --> Shortest Path Dist\n");
-//        printf("(T) --> TSP\n");
-//        ch=toupper(getchar());
-//        system("CLS");
-//        switch (ch)
-//        {
-//        case 'A':
-//            createGraph();
-//            break;
-//        case 'B':
-//            createNode(addNode_EdgeList);
-//            break;
-//        case 'D':
-//            deleteNode(nodeDel);
-//            break;
-//        case 'S':
-//            dist = ShortestPathDist(nodeSrc, nodeDest);
-//            printf("%d\n", dist);
-//            break;
-//        case 'T':
-//            tspList = tsp(nodeList);
-//            break;
-//        default:
-//            printf("try again \n");
-//            getchar();
-//            break;
-//        }
-//        printf("Enter any for the menu");
-//        getchar();
-//        system("CLS");
-//    }
-//}
+#include "graph.h"
+int main()
+{
+    while (ch != '\n')
+    {
+        switch (ch)
+        {
+        case 'A':
+            ch = getchar();
+            v_size = 0;
+            e_size = 0;
+            scanf("%d", &v_size);
+            build_graph_cmd(&head);
+            // printGraph_cmd(&head);
+            break;
+        case 'B':
+            insert_node_cmd(&head);
+            // printGraph_cmd(&head);
+            break;
+        case 'D':
+            delete_node_cmd(&head);
+            // printGraph_cmd(&head);
+            break;
+        case 'T':
+            TSP_cmd(&head);
+            break;
+        case 'S':
+            shortsPath_cmd(&head);
+            break;
+        }
+        if (isalpha(ch))
+            continue;
+        if (ch == '\n')
+            break;
+        ch = getchar();
+    }
+    deleteGraph_cmd(&head);
+    return 0;
+}

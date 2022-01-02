@@ -3,23 +3,23 @@ CC = gcc #if we want to change compiler
 
 all: graph 
 
-graph:main.o libclass.a 
-	$(CC) $(FLAGS) -o graph main.o libclass.a
+graph:main.o libclass.a
+	$(CC) $(FLAGS) -o graph main.o graph.o minHeap.o
 
-main.o: main.c algo.h
+main.o: main.c graph.h
 	$(CC) $(FLAGS) -c main.c 
 
-libclass.a:algo.o
-	ar -rcs libclass.a algo.o
+libclass.a:minHeap.o graph.o
+	ar -rcs libclass.a minHeap.o graph.o
 
-algo.o: algo.c algo.h
-	$(CC) $(FLAGS) -c algo.c 
+graph.o: graph.c graph.h 
+	$(CC) $(FLAGS) -c graph.c 
 
-edges.o:edges.c edges.h
-	$(CC) $(FLAGS) -c edges.c
+minHeap.o: minHeap.c minHeap.h 
+	$(CC) $(FLAGS) -c minHeap.c 
 
-nodes.o:nodes.c nodes.h
-	$(CC) $(FLAGS) -c nodes.c
+
+
 
 .PHONY: clean
 clean:
