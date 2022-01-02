@@ -1,9 +1,9 @@
 #include "graph.h"
 #include "minHeap.h"
 
-char ch=0;
-int v_size=0;
-int e_size=0;
+char ch = 0;
+int v_size = 0;
+int e_size = 0;
 int *listVisited;
 pnode head = NULL;
 pnode tail = NULL;
@@ -427,32 +427,29 @@ void TSP_cmd(pnode *head)
         return;
     }
     int minDistance = MAX_INT;
-    int *permute = malloc(count_cities * sizeof(int));
-    for (int i = 0; i < count_cities; i++)
-        permute[i] = i;
-    int *temp_permute = calloc(count_cities, sizeof(int));
+    int *permute = calloc(count_cities, sizeof(int));
     int index_i = 0;
-    int h = -1;
+    int jumpOneRound = -1;
     while (index_i < count_cities)
     {
-        if (temp_permute[index_i] < index_i)
+        if (permute[index_i] < index_i)
         {
-            if (h >= 0)
+            if (jumpOneRound == 0)
             {
                 if (index_i % 2 == 0)
-                    swap(permute, 0, index_i);
+                    swap(cities, 0, index_i);
                 else
-                    swap(permute, temp_permute[index_i], index_i);
+                    swap(cities, permute[index_i], index_i);
             }
             else
             {
-                temp_permute[index_i] = 0;
+                permute[index_i] = 0;
                 index_i--;
             }
-            h++;
+            jumpOneRound=0;
             int count = count_cities - 2;
             int distance = 0;
-            int cityPath = dijkstra(head, cities[permute[0]], cities[permute[1]]);
+            int cityPath = dijkstra(head, cities[0], cities[1]);
 
             int *citiesPathList = malloc((cityPath - 1) * sizeof(int));
             int count_citiesPathList = cityPath - 1;
@@ -462,16 +459,16 @@ void TSP_cmd(pnode *head)
                 listVisited = NULL;
                 free(citiesPathList);
                 citiesPathList = NULL;
-                temp_permute[index_i] += 1;
+                permute[index_i] += 1;
                 index_i = 0;
                 continue;
             }
             distance += listVisited[--cityPath];
-            int p = 0;
+            int p_index = 0;
             while (cityPath)
             {
                 cityPath--;
-                citiesPathList[p++] = listVisited[cityPath];
+                citiesPathList[p_index++] = listVisited[cityPath];
             }
             if (count == 0)
             {
@@ -479,20 +476,20 @@ void TSP_cmd(pnode *head)
                 listVisited = NULL;
                 free(citiesPathList);
                 citiesPathList = NULL;
-                temp_permute[index_i] += 1;
+                permute[index_i] += 1;
                 minDistance = MIN(distance, minDistance);
                 index_i = 0;
                 continue;
             }
-            p = 2;
+            p_index = 2;
             int flag = 0;
             while (count)
             {
                 for (int i = 0; i < count_citiesPathList; i++)
                 {
-                    if (cities[permute[p]] == citiesPathList[i])
+                    if (cities[p_index] == citiesPathList[i])
                     {
-                        p++;
+                        p_index++;
                         flag = 1;
                         break;
                     }
@@ -505,7 +502,7 @@ void TSP_cmd(pnode *head)
                 }
                 free(listVisited);
                 listVisited = NULL;
-                cityPath = dijkstra(head, citiesPathList[count_citiesPathList - 1], cities[permute[p]]);
+                cityPath = dijkstra(head, citiesPathList[count_citiesPathList - 1], cities[p_index]);
 
                 if (listVisited[--cityPath] == MAX_INT)
                 {
@@ -539,7 +536,7 @@ void TSP_cmd(pnode *head)
                     flag = 0;
                     cityPath--;
                 }
-                p++;
+                p_index++;
                 count--;
                 if (count)
                 {
@@ -555,7 +552,7 @@ void TSP_cmd(pnode *head)
                 free(listVisited);
                 listVisited = NULL;
             }
-            temp_permute[index_i] += 1;
+            permute[index_i] += 1;
             index_i = 0;
             if (citiesPathList != NULL)
                 free(citiesPathList);
@@ -564,25 +561,18 @@ void TSP_cmd(pnode *head)
         }
         else
         {
-            temp_permute[index_i] = 0;
+            permute[index_i] = 0;
             index_i++;
         }
     }
-
     free(cities);
     cities = NULL;
     free(permute);
     permute = NULL;
-
-    free(temp_permute);
-    temp_permute = NULL;
-    // printf("\n___________________________________\n");
     if (minDistance < MAX_INT)
         printf("TSP shortest path: %d\n", minDistance);
     else
         printf("TSP shortest path: -1\n");
-    // printf("\n___________________________________\n");
-
     if (ch == ' ')
         ch = getchar();
 }
