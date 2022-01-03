@@ -68,12 +68,13 @@ void build_graph_cmd(pnode *head)
         inputStream = realloc(inputStream, ((i + 1) * sizeof(*inputStream)));
         *(inputStream + i) = ch;
     }
-
+    inputStream = realloc(inputStream, ((i + 1) * sizeof(*inputStream)));
+    *(inputStream + i) = '\0';
     pnode *vert_created = calloc(v_size, sizeof(**vert_created));
     int number = v_size;
     int index_stream = 0;
     char ch = ' ';
-    while (number && index_stream < i)
+    while (*(inputStream + index_stream) != '\0' && number && index_stream < i)
     {
         ch = *(inputStream + index_stream);
         if (ch == ' ' || ch == 'n')
@@ -252,6 +253,8 @@ void insert_node_cmd(pnode *head)
         inputStream = realloc(inputStream, ((i + 1) * sizeof(*inputStream)));
         *(inputStream + i) = ch;
     }
+    inputStream = realloc(inputStream, ((i + 1) * sizeof(*inputStream)));
+    *(inputStream + i) = '\0';
     newNode->id = nodeId;
     newNode->neighbours = NULL;
     if (i < 3)
@@ -262,7 +265,7 @@ void insert_node_cmd(pnode *head)
     tempHead = *head;
     int index_stream = 0;
     char ch = ' ';
-    while (index_stream < i)
+    while (*(inputStream + index_stream) != '\0' && index_stream < i)
     {
         ch = *(inputStream + index_stream);
         if (ch == ' ' || ch == '\n')
@@ -446,7 +449,7 @@ void TSP_cmd(pnode *head)
                 permute[index_i] = 0;
                 index_i--;
             }
-            jumpOneRound=0;
+            jumpOneRound = 0;
             int count = count_cities - 2;
             int distance = 0;
             int cityPath = dijkstra(head, cities[0], cities[1]);
