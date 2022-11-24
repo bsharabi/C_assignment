@@ -1,3 +1,10 @@
+#include <stdio.h>
+#include <math.h>
+#define true 1
+#define false 0
+
+
+
 /* will return if a number is Armstrong number 
 */
 int isArmstrong(int);

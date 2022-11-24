@@ -1,8 +1,6 @@
-#include <math.h>
-#include <stdio.h>
+
 #include "NumClass.h"
-#define true 1
-#define false 0
+
 //O(log(number)) base 10
 int isPalindrome(int number)
 {

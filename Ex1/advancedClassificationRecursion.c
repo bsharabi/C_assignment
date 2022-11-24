@@ -1,8 +1,6 @@
-#include <stdio.h>
-#include <math.h>
+
 #include "NumClass.h"
-#define true 1
-#define false 0
+
 //O(log(number)) base 10
 int reversNumber(int number)
 {

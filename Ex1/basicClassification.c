@@ -1,7 +1,6 @@
-#include <stdio.h>
+
 #include "NumClass.h"
-#define true 1
-#define false 0
+
 //O(log(n)) base 10 n is a digit of number
 int isStrong(int n)
 {
@@ -18,7 +17,7 @@ int isPrime(int n)
 {
 	if (n == 1)
 		return true;
-	for (int i = 2; i <= n / 2; ++i)
+	for (int i = 2; i <= sqrt(n); ++i)
 		if (n % i == 0)
 			return false;
 	return true;
